@@ -18,6 +18,14 @@ function reducer(state=initialState,action){
         //return {...state,n:400}
         return {...state,n:state.n+1}
     }
+    if(action.type=="DYNAMIC_INCREMENT"){
+        // 1st parameter ... state initial state (all other value of states)
+        // the property which we want to change 
+        // new value 
+        console.log(action)
+        //return {...state,n:400}
+        return {...state,n:action.payload}
+    }
     if(action.type=="DECREMENT"){
         // 1st parameter ... state initial state (all other value of states)
         // the property which we want to change 

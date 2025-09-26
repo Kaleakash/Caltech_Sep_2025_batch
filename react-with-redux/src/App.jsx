@@ -5,6 +5,7 @@ import './App.css'
 import FirstComponent from './FirstComponent'
 import Product from './Product'
 import SkillSet from './SkillSet'
+import DynamicIncrement from './DynamicIncrement'
 
 function App() {
   
@@ -13,6 +14,7 @@ function App() {
     <>
     <h2>React with Core Redux </h2>  
     <FirstComponent></FirstComponent>
+    <DynamicIncrement></DynamicIncrement>
     <Product></Product>
     <SkillSet></SkillSet>
     </>
