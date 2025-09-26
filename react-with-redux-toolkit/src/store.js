@@ -3,7 +3,8 @@ import productReducer from './ProductSlice';
 
 const storeRef = configureStore({
     reducer: {
-        product:productReducer  
+        product:productReducer  ,
+        //order:orderReducer
     }
 })
 

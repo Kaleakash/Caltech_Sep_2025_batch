@@ -23,5 +23,5 @@ let productSlice = createSlice({
 })
 
 export const {addProduct}=productSlice.actions  // export function outside a file 
-export default productSlice.reducer;    // we can link to store. 
+export default productSlice.reducer;    // we can link to store. it return as productReducer 
 
