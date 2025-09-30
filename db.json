@@ -1,9 +1,14 @@
 {
   "products": [
     {
-      "id": "cb43",
-      "pname": "Computer",
-      "price": "45000"
+      "id": "a223",
+      "pname": "Tv",
+      "price": "95000"
+    },
+    {
+      "id": "81f1",
+      "pname": "Sony Tv",
+      "price": "89000"
     }
   ]
 }
