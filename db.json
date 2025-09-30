@@ -1,19 +1,9 @@
 {
   "products": [
     {
-      "pname": "TV",
-      "price": 56000,
-      "id": "9bf6"
-    },
-    {
+      "id": "cb43",
       "pname": "Computer",
-      "price": 45000,
-      "id": "9408"
-    },
-    {
-      "id": "518f",
-      "pname": "Pen Drive",
-      "price": "1600"
+      "price": "45000"
     }
   ]
 }

@@ -3,6 +3,7 @@ import './App.css'
 import axios from 'axios';
 
 function App() {
+let URL="http://localhost:3000/products";
 let [products,setProducts]=useState([]);
 
 let [product,setProduct]=useState({"pname":"",price:0.0});
@@ -21,7 +22,7 @@ let [product,setProduct]=useState({"pname":"",price:0.0});
 // ES6 style 
 let loadProductData= async ()=> {
   try{
-  let result = await axios.get("http://localhost:3000/products");
+  let result = await axios.get(URL);
   //console.log(result.data)
   setProducts(result.data)
   }catch(error){
@@ -34,7 +35,7 @@ let storeProduct=async (event)=> {
       console.log(product)
   // 1st parameter is url and 2nd parameter json data or js object 
   try{
-  let result = await axios.post("http://localhost:3000/products",product)
+  let result = await axios.post(URL,product)
   console.log(result)
   }catch(error){
     console.log(error)
@@ -42,6 +43,17 @@ let storeProduct=async (event)=> {
   setProduct({pname:"",price:0.0})
 }
 loadProductData();
+
+
+let deleteProduct=async (id)=> {
+  //alert("delete fun called.."+id)
+  try{
+  let result = await axios.delete(URL+"/"+id);
+  console.log(result)
+  }catch(error){
+    console.log(error)
+  }
+}
   return (
     <>
     <h2>Product CRUD Operation using axios with json-server</h2>
@@ -63,7 +75,8 @@ loadProductData();
         <tr>
           <th>PId</th>
           <th>PName</th>
-          <th>Price</th>  
+          <th>Price</th> 
+          <th>Delete</th> 
         </tr>      
     </thead>
     <tbody>
@@ -73,6 +86,9 @@ loadProductData();
             <td>{p.id}</td>
             <td>{p.pname}</td>
             <td>{p.price}</td>
+            <td>
+              <input type='button' value="delete" onClick={()=>deleteProduct(p.id)}/>
+            </td>
           </tr>
         )
       }
