@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function App() {
 let URL="http://localhost:3000/products";
+
 let [products,setProducts]=useState([]);
 
 let [product,setProduct]=useState({"pname":"",price:0.0});
@@ -44,6 +45,7 @@ let storeOrUpdateProduct=async (event)=> {
   }catch(error){
     console.log(error)
   }
+  
 }else {
     //alert("ready to update")
     try{
@@ -58,6 +60,7 @@ let storeOrUpdateProduct=async (event)=> {
 
   setProduct({pname:"",price:0.0})
 }
+
 loadProductData();
 
 
