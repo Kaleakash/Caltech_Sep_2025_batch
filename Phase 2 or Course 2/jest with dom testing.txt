@@ -13,7 +13,7 @@ npm install jest -D
 ES6 JavaScript testing 
 
 
-npm install -D @babel/core @babel/preset-env babel-jest
+npm install -D @babel/core @babel/preset-env babel-jest jest 
 
 
 
