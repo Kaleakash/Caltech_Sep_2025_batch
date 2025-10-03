@@ -1,0 +1,100 @@
+
+ES5 javascript testing 
+
+
+npm install --save-dev jest
+
+or 
+
+npm install jest -D
+
+
+
+ES6 JavaScript testing 
+
+
+npm install -D @babel/core @babel/preset-env babel-jest
+
+
+
+babel.config.cjs 
+
+module.exports = {
+  presets: [
+    ["@babel/preset-env", { targets: { node: "current" } }]
+  ]
+};
+
+
+
+Testing html dom contents 
+
+npm install -D  jest @babel/core @babel/preset-env babel-jest @testing-library/dom @testing-library/jest-dom
+
+
+babel.config.cjs:
+
+module.exports = {
+  presets: [
+    ["@babel/preset-env", { targets: { node: "current" } }]
+  ]
+};
+
+
+
+Then add this code inside a package.json file 
+
+{
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": ["<rootDir>/setupTests.js"]
+  }
+}
+
+
+setupTests.js
+
+import '@testing-library/jest-dom';
+
+
+
+React JS Testing 
+
+cd react-testing-app
+npm install --save-dev jest @testing-library/react @testing-library/jest-dom @testing-library/user-event babel-jest @babel/preset-env @babel/preset-react
+
+
+babel.config.js
+
+module.exports = {
+  presets: [
+    ["@babel/preset-env", { targets: { node: "current" } }],
+    "@babel/preset-react"
+  ]
+};
+
+
+
+In package.json, add:
+"jest": {
+  "testEnvironment": "jsdom",
+  "setupFilesAfterEnv": ["<rootDir>/src/setupTests.js"]
+}
+
+
+
+
+
+
+{
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": ["<rootDir>/setupTests.js"]
+  }
+}
