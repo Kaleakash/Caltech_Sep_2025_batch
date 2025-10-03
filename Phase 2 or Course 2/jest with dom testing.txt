@@ -64,10 +64,11 @@ import '@testing-library/jest-dom';
 React JS Testing 
 
 cd react-testing-app
+
 npm install --save-dev jest @testing-library/react @testing-library/jest-dom @testing-library/user-event babel-jest @babel/preset-env @babel/preset-react
+npm install -D jest-environment-jsdom
 
-
-babel.config.js
+babel.config.cjs
 
 module.exports = {
   presets: [
@@ -79,22 +80,25 @@ module.exports = {
 
 
 In package.json, add:
-"jest": {
-  "testEnvironment": "jsdom",
-  "setupFilesAfterEnv": ["<rootDir>/src/setupTests.js"]
-}
 
-
-
-
-
+	inside a script test:jest 
 
 {
   "scripts": {
     "test": "jest"
   },
+
+
+
+
   "jest": {
     "testEnvironment": "jsdom",
     "setupFilesAfterEnv": ["<rootDir>/setupTests.js"]
   }
 }
+
+
+create a file with name as setupTests inside src directory
+
+import '@testing-library/jest-dom'
+
