@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Drag & Drop App</title>
+  <style>
+    :root{ --bg:#f4f7fa; --card:#fff; --accent:#4f46e5 }
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; background:var(--bg); margin:0; padding:24px}
+    h1{margin:0 0 12px;font-size:20px}
+    .board{display:flex;gap:16px}
+    .column{flex:1;background:linear-gradient(180deg,#ffffffcc, #ffffffcc); border-radius:12px; padding:12px; box-shadow:0 6px 18px rgba(20,20,40,0.06)}
+    .col-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .col-title{font-weight:600}
+    .list{min-height:150px;padding:8px;border-radius:8px;background:transparent; transition:background .15s}
+    .list.over{background:rgba(79,70,229,0.06);}
+    .item{background:var(--card); padding:10px;border-radius:8px;margin-bottom:8px; cursor:grab; box-shadow:0 2px 6px rgba(16,24,40,0.04);}
+    .item:active{cursor:grabbing}
+    .controls{display:flex;gap:8px;margin-top:8px}
+    input[type=text]{flex:1;padding:8px;border-radius:8px;border:1px solid #e6e9ef}
+    button{padding:8px 10px;border-radius:8px;border:none;background:var(--accent);color:white;font-weight:600;cursor:pointer}
+    small.note{display:block;margin-top:10px;color:#6b7280}
+  </style>
+</head>
+<body>
+  <h1>Simple Drag & Drop (HTML5 API)</h1>
+  <p>Drag items between columns. Add a new task to the left column.</p>
+
+  <div class="board">
+    <div class="column" data-name="todo">
+      <div class="col-header"><div class="col-title">To Do</div><div class="count" id="count-todo">3</div></div>
+      <div class="list" id="todo-list">
+        <div class="item" draggable="true" data-id="1">Write proposal</div>
+        <div class="item" draggable="true" data-id="2">Design wireframes</div>
+        <div class="item" draggable="true" data-id="3">Set up repo</div>
+      </div>
+      <div class="controls">
+        <input id="new-task" type="text" placeholder="New task..." />
+        <button id="add-btn">Add</button>
+      </div>
+    </div>
+
+    <div class="column" data-name="inprogress">
+      <div class="col-header"><div class="col-title">In Progress</div><div class="count" id="count-inprogress">0</div></div>
+      <div class="list" id="inprogress-list">
+        <!-- dropped items appear here -->
+      </div>
+    </div>
+
+    <div class="column" data-name="done">
+      <div class="col-header"><div class="col-title">Done</div><div class="count" id="count-done">0</div></div>
+      <div class="list" id="done-list">
+      </div>
+    </div>
+  </div>
+
+  <small class="note">Works in modern browsers. Uses native HTML5 Drag & Drop API.</small>
+
+  <script>
+    // Basic drag & drop logic
+    const lists = document.querySelectorAll('.list');
+    let dragged = null;
+
+    // Make items draggable and attach dragstart/dragend
+    function initDraggables() {
+      document.querySelectorAll('.item').forEach(item => {
+        item.addEventListener('dragstart', e => {
+          dragged = item;
+          e.dataTransfer.setData('text/plain', item.dataset.id || '');
+          e.dataTransfer.effectAllowed = 'move';
+          item.style.opacity = '0.5';
+        });
+        item.addEventListener('dragend', () => {
+          dragged = null;
+          document.querySelectorAll('.item').forEach(i => i.style.opacity = '1');
+          updateCounts();
+        });
+      });
+    }
+
+    // Allow dropping on lists
+    lists.forEach(list => {
+      list.addEventListener('dragover', e => {
+        e.preventDefault(); // necessary to allow drop
+        e.dataTransfer.dropEffect = 'move';
+        list.classList.add('over');
+      });
+      list.addEventListener('dragleave', () => list.classList.remove('over'));
+      list.addEventListener('drop', e => {
+        e.preventDefault();
+        list.classList.remove('over');
+        if (!dragged) return;
+        // insert before the element at drop position if any
+        const afterElement = getDragAfterElement(list, e.clientY);
+        if (afterElement == null) list.appendChild(dragged);
+        else list.insertBefore(dragged, afterElement);
+        updateCounts();
+      });
+    });
+
+    // Helper: determine which element is after the cursor (vertical)
+    function getDragAfterElement(container, y) {
+      const draggableElements = [...container.querySelectorAll('.item:not(.dragging)')];
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else return closest;
+      }, { offset: Number.NEGATIVE_INFINITY }).element || null;
+    }
+
+    // Add new task
+    const addBtn = document.getElementById('add-btn');
+    addBtn.addEventListener('click', () => {
+      const input = document.getElementById('new-task');
+      const text = input.value.trim();
+      if (!text) return;
+      const id = Date.now();
+      const item = document.createElement('div');
+      item.className = 'item';
+      item.draggable = true;
+      item.dataset.id = id;
+      item.textContent = text;
+      document.getElementById('todo-list').appendChild(item);
+      input.value = '';
+      initDraggables();
+      updateCounts();
+    });
+
+    // Update column counts
+    function updateCounts(){
+      document.getElementById('count-todo').textContent = document.querySelectorAll('#todo-list .item').length;
+      document.getElementById('count-inprogress').textContent = document.querySelectorAll('#inprogress-list .item').length;
+      document.getElementById('count-done').textContent = document.querySelectorAll('#done-list .item').length;
+    }
+
+    // Initialize
+    initDraggables();
+    updateCounts();
+
+    // Optional: keyboard accessibility to move focused item between columns using arrow keys
+    document.addEventListener('keydown', (e) => {
+      const active = document.activeElement;
+      if (!active.classList || !active.classList.contains('item')) return;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const currentList = active.closest('.list');
+        const column = currentList.id;
+        const columns = ['todo-list','inprogress-list','done-list'];
+        let idx = columns.indexOf(column);
+        idx += (e.key === 'ArrowRight') ? 1 : -1;
+        idx = Math.max(0, Math.min(columns.length-1, idx));
+        document.getElementById(columns[idx]).appendChild(active);
+        updateCounts();
+        active.focus();
+      }
+    });
+
+    // Make items focusable for keyboard usage
+    function makeFocusable(){
+      document.querySelectorAll('.item').forEach(it=> it.tabIndex = 0);
+    }
+    makeFocusable();
+
+    // Re-run focusability whenever new items added
+    const observer = new MutationObserver(() => { initDraggables(); makeFocusable(); });
+    observer.observe(document.getElementById('todo-list'), { childList:true });
+    observer.observe(document.getElementById('inprogress-list'), { childList:true });
+    observer.observe(document.getElementById('done-list'), { childList:true });
+  </script>
+</body>
+</html>
