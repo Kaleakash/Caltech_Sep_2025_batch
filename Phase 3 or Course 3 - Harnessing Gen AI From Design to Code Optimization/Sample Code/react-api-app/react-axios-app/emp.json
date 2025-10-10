@@ -1,0 +1,51 @@
+{
+  "departments": [
+    {
+      "id": 1,
+      "departmentName": "Computer Science"
+    },
+    {
+      "id": 2,
+      "departmentName": "Mathematics"
+    },
+    {
+      "id": 3,
+      "departmentName": "Physics"
+    },
+    {
+      "id": 4,
+      "departmentName": "Chemistry"
+    },
+    {
+      "id": 5,
+      "departmentName": "Biology"
+    }
+  ],
+  "students": [
+    {
+      "id": 1,
+      "studentName": "Alice Johnson",
+      "departmentId": 1
+    },
+    {
+      "id": 2,
+      "studentName": "Bob Smith",
+      "departmentId": 2
+    },
+    {
+      "id": 3,
+      "studentName": "Charlie Brown",
+      "departmentId": 1
+    },
+    {
+      "id": 4,
+      "studentName": "Diana Prince",
+      "departmentId": 3
+    },
+    {
+      "id": 5,
+      "studentName": "Ethan Hunt",
+      "departmentId": 4
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Apple",
+      "category": "Fruits",
+      "price": 1.2
+    },
+    {
+      "id": 2,
+      "name": "Milk",
+      "category": "Dairy",
+      "price": 2.5
+    },
+    {
+      "id": 3,
+      "name": "Bread",
+      "category": "Bakery",
+      "price": 1.8
+    },
+    {
+      "id": 4,
+      "name": "Eggs",
+      "category": "Dairy",
+      "price": 3.0
+    },
+    {
+      "id": 5,
+      "name": "Chicken Breast",
+      "category": "Meat",
+      "price": 5.5
+    }
+  ],
+  "orders": [
+    {
+      "orderId": 101,
+      "userId": 1,
+      "productId": 1,
+      "quantity": 5
+    },
+    {
+      "orderId": 102,
+      "userId": 2,
+      "productId": 3,
+      "quantity": 2
+    },
+    {
+      "orderId": 103,
+      "userId": 3,
+      "productId": 5,
+      "quantity": 1
+    },
+    {
+      "orderId": 104,
+      "userId": 1,
+      "productId": 2,
+      "quantity": 3
+    },
+    {
+      "orderId": 105,
+      "userId": 2,
+      "productId": 4,
+      "quantity": 12
+    }
+  ],
+  "users": [
+    {
+      "userId": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "address": "123 Main St, Springfield"
+    },
+    {
+      "userId": 2,
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "address": "456 Elm St, Shelbyville"
+    },
+    {
+      "userId": 3,
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "address": "789 Oak St, Ogdenville"
+    }
+  ]
+}
