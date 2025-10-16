@@ -20,3 +20,19 @@ if(result==undefined){
 }else {
     console.log("Employee with id "+result.id+" already exists");
 }
+// remove particular object using id property (eg: id=3)
+// findIndex will return the index of the object or -1 if not found
+let empRemoveId = 10;
+console.log("Before removal, Number of Employee "+employees.length);
+let index = employees.findIndex(e=>e.id==empRemoveId);
+if(index!=-1){
+    employees.splice(index,1);
+    console.log("Employee with id "+empRemoveId+" removed");
+}else {
+    console.log("Employee with id "+empRemoveId+" not found");
+}
+console.log("After removal, Number of Employee "+employees.length);
+// display all employee objects using forEach
+employees.forEach(e=>{
+    console.log(e);
+});
