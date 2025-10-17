@@ -38,7 +38,7 @@
 
 // Creating Employee object with parameterized constructor
 class Employee {
-    constructor(id, name, age=21, salary=12000) { // parameterized constructor
+    constructor(id=0, name="Unknown", age=21, salary=12000) { // parameterized constructor
         this.id = id;
         this.name = name;
         this.age = age;
@@ -53,6 +53,7 @@ let emp1 = new Employee(100, "John", 30, 50000);
 let emp2 = new Employee(101, "Jane", 28, 60000);
 let emp3 = new Employee(102, "Doe", 35);
 let emp4 = new Employee(103, "Smith"); 
+let emp5 = new Employee(100,"",35)
 emp1.displayEmployeeInfo();
 emp2.displayEmployeeInfo();
 emp3.displayEmployeeInfo(); 
