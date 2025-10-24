@@ -41,7 +41,7 @@ child1.addChild(grandChild2);
 child2.addChild(grandChild3);
 child2.addChild(grandChild4);
 
-root.printTreeDFS(root);
+root.printTreeDFS(child1);
 console.log("----------------");
 root.printTreeBFS(root);
 
