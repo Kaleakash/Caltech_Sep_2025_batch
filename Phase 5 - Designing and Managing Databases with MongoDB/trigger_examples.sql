@@ -25,4 +25,12 @@ select * from product;
 select * from product_log;
 update product set price = 59000 where pid=3;
 
+select * from employee;
+
+
+
+
+
+
+
 
