@@ -1,0 +1,1 @@
+Welcome to Node JS with fs module exampleWelcome to Node JS with we are going to learn express module
