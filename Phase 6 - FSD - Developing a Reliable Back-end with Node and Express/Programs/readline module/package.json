@@ -1,5 +1,16 @@
 {
   "dependencies": {
     "readline-sync": "^1.4.10"
-  }
+  },
+  "name": "readline-module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "readineValue.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
