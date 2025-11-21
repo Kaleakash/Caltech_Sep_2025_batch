@@ -31,6 +31,9 @@ let server = http.createServer((request,response)=> {
         let loginData = urlRef.query
         loginsDataFromFile = JSON.parse(fs.readFileSync("logins.json").toString());
         let result = loginsDataFromFile.find(ll=>ll.emailId==loginData.emailId)
+        // request.on("",(msg)=> {
+        //     console.log(msg)
+        // })
         if(result != undefined){
             response.write("<h2>Account didn't create EmailId already exists, "+loginData.emailId+"</h2>")
             response.write("<a href='signUp'>SignUp</a>")
@@ -46,6 +49,7 @@ let server = http.createServer((request,response)=> {
     }else {
         response.write("<h2>Not Found Page</h2>")
     }
+    
     response.end();
 })
 
