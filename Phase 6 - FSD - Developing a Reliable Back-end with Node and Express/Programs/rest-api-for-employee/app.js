@@ -100,4 +100,21 @@ app.post("/storeEmployee",(request,response)=> {
     }
 });
 
+
+// update employee salary, department, role, isActive  
+// http://localhost:3000/updateSalary 
+// method : patch  
+// data : {"id":100,"salary": 66000}
+
+app.patch("/updateSalary",(request,response)=> {
+    let emp = request.body;
+
+    let index = employees.findIndex(e=>e.id==emp.id);
+    if(index<0){
+        response.json({"msg":"Record not present with id as "+emp.id});
+    }else {
+        employees[index].salary=emp.salary;
+        response.json({"msg":"Employee salary updated successfully"});
+    }
+});
 app.listen(3000,()=>console.log("Server running on port number 3000"));
