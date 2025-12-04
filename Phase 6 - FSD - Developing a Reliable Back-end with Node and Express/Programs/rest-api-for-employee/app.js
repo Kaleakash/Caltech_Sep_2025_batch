@@ -65,6 +65,17 @@ app.get("/findAllEmployee",(request,response)=> {
     response.json(employees)
 })
 
-
+// search particular employee details using id property 
+// http://localhost:3000/findEmployeeById/1
+// http://localhost:3000/findEmployeeById/100
+app.get("/findEmployeeById/:id",(request,response)=> {
+    let eid = request.params.id;
+    let foundEmployee = employees.find(e=>e.id==eid);
+    if(foundEmployee!=undefined){
+        response.json(foundEmployee)
+    }else {
+        response.json({"msg":"Record not present with id as "+eid});
+    }
+})
 
 app.listen(3000,()=>console.log("Server running on port number 3000"));
