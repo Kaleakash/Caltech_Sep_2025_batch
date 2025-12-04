@@ -1,6 +1,9 @@
 let express = require("express")
 let app = express();
 
+// adding middleware 
+app.use(express.json());    //extract json data from request body
+
 const employees = [
   {
     id: 101,
@@ -67,7 +70,7 @@ app.get("/findAllEmployee",(request,response)=> {
 
 // search particular employee details using id property 
 // http://localhost:3000/findEmployeeById/1
-// http://localhost:3000/findEmployeeById/100
+// http://localhost:3000/findEmployeeById/101
 app.get("/findEmployeeById/:id",(request,response)=> {
     let eid = request.params.id;
     let foundEmployee = employees.find(e=>e.id==eid);
@@ -77,5 +80,24 @@ app.get("/findEmployeeById/:id",(request,response)=> {
         response.json({"msg":"Record not present with id as "+eid});
     }
 })
+
+// post employee details in employees array variable 
+// http://localhost:3000/storeEmployee 
+// method : post 
+// data : {}
+app.post("/storeEmployee",(request,response)=> {
+    let emp = request.body;
+    //console.log(emp);
+    // employees.push(emp)
+    // response.send("Employee record stored successfully")
+
+    let foundEmployee = employees.find(e=>e.id==emp.id);
+    if(foundEmployee==undefined){
+        employees.push(emp)
+        response.json({"msg":"Record stored successfully"});
+    }else {
+        response.json({"msg":"Employee id must be unique, "+emp.id+" already present"});
+    }
+});
 
 app.listen(3000,()=>console.log("Server running on port number 3000"));
