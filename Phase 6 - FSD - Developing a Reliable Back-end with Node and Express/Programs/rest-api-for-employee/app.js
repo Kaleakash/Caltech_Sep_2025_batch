@@ -117,4 +117,21 @@ app.patch("/updateSalary",(request,response)=> {
         response.json({"msg":"Employee salary updated successfully"});
     }
 });
+
+// delete employee details using unique property ie id 
+// http://localhost:3000/deleteEmployee/101
+// method :delete 
+
+
+app.delete("/deleteEmployee/:id",(request,response)=> {
+    let id = request.params.id;
+
+    let index = employees.findIndex(e=>e.id==id);
+    if(index<0){
+        response.json({"msg":"Record not present with id as "+id});
+    }else {
+        employees.splice(index,1);
+        response.json({"msg":"Employee deleted successfully"});
+    }
+});
 app.listen(3000,()=>console.log("Server running on port number 3000"));
