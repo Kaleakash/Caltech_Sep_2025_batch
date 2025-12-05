@@ -38,5 +38,37 @@ app.get("/findAllEmployee",async (request,response)=> {
     }
 })
 
+// http://localhost:3000/findEmployeeById
+// find employee details using id property 
+app.get("/findEmployeeById/:id",async (request,response)=> {
+    try{
+    let id = new mongodb.ObjectId(request.params.id);
+    let employee = await myDb.collection("Employee").findOne({_id:id})
+    if (employee==null){
+        response.json({"msg":"Record not present with id as "+id});
+    }else {
+        response.json(employee)
+    }
+    }catch(error){
+        response.json({"msg":error.message})
+    }
+})
+
+// http://localhost:3000/findEmployeeHighestSalary
+// find employee details using id property 
+app.get("/findEmployeeHighestSalary/:salary",async (request,response)=> {
+    try{
+    let salaryValue = eval(request.params.salary);
+    let employees = await myDb.collection("Employee").find({salary:{$gt:salaryValue}}).toArray()
+   // console.log(employees)
+    if (employees.length==0){
+        response.json({"msg":"Record not present with salary >"+salaryValue});
+    }else {
+        response.json(employees)
+    }
+    }catch(error){
+        response.json({"msg":error.message})
+    }
+})
 
 app.listen(3000,()=>console.log("Server running on port number 3000"))
