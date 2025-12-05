@@ -27,6 +27,27 @@ app.post("/storeEmployee",async (request,response)=> {
     }
 })
 
+
+// http://localhost:3000/updateSalary
+// update Employee salary 
+app.patch("/updateSalary/:id",async (request,response)=> {
+    let id = new mongodb.ObjectId(request.params.id);
+    let newSalary = request.body.salary;
+    try{
+    let result = await myDb.collection("Employee").updateOne({_id:id},{$set:{salary:newSalary}})
+    if(result.matchedCount==1 && result.modifiedCount==1){
+        response.json({"msg":"salary updated successfully"})
+    }else if(result.modifiedCount==0 && result.matchedCount==1 ){
+        response.json({"msg":"salary didn't update because old salary and new salary both are same"})
+    }else {
+        response.json({"msg":"Record not present with id as "+id})
+    }
+    
+    }catch(error){
+        response.json({"msg":error.message})
+    }
+})
+
 // http://localhost:3000/findAllEmployee
 // get all employee records 
 app.get("/findAllEmployee",async (request,response)=> {
@@ -49,6 +70,23 @@ app.get("/findEmployeeById/:id",async (request,response)=> {
     }else {
         response.json(employee)
     }
+    }catch(error){
+        response.json({"msg":error.message})
+    }
+})
+
+
+// http://localhost:3000/deleteEmployee
+// find employee details using id property 
+app.delete("/deleteEmployee/:id",async (request,response)=> {
+    try{
+    let id = new mongodb.ObjectId(request.params.id);
+    let result = await myDb.collection("Employee").deleteOne({_id:id})
+    if(result.deletedCount>0){
+        response.json({"msg":"Record deleted successfully with id as "+id})
+    }else {
+        response.json({"msg":"Record not present"})
+    } 
     }catch(error){
         response.json({"msg":error.message})
     }
