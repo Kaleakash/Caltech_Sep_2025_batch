@@ -16,6 +16,9 @@ exports.storeProduct = async (product)=> {
 }
 
 exports.findAll = async () => {
-    return productRepository.findAll();
-    //return productRepository.findAll().map(p=>p.price-p.price*0.10);
+    let result = await productRepository.findAll();
+    let discount = 0.10;
+    let discountPrice = p.price-p.price*discount;
+    let updateData = result.map(p=>new Product(p._id,p.pname,discountPrice,p.qty));
+    return updateData;
 }
