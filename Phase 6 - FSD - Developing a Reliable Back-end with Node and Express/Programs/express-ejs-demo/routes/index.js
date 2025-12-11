@@ -18,6 +18,16 @@ router.get("/login",(request,response)=> {
   response.render("login.ejs",{msg:""})
 })
 
-// check login details
+// open the login page 
+router.get("/signUp",(request,response)=> {
+  response.render("signUp.ejs",{msg:""})
+})
+
+// check login details from db
 router.post("/checkLoginDetails",loginController.checkLogin)
+
+
+// check login details from db
+router.post("/signUp",loginController.signUp)
+
 module.exports = router;
