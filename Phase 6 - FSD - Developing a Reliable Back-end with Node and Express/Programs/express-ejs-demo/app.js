@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+  app.use(express.urlencoded({ extended: true }));  // enable post data receive from form with post method 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // http://localhost:300/
