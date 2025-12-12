@@ -6,3 +6,13 @@ body {
 a {
   color: #00B7FF;
 }
+h1 {
+    background-color: violet;
+}
+p{
+    font-size: 20pt;
+    font-family: 'Courier New', Courier, monospace;
+}
+h2 {
+    color: red;
+}

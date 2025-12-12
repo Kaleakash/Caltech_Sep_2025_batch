@@ -3,6 +3,7 @@ let originalPassword = "admin@123";
 
 async function hashPassword(password){
         let saltRound = 10;
+       // bcrptjs.hash("abc@123",)
     let hashFormatPassword = await bcrptjs.hash(password,saltRound);
     return hashFormatPassword;
 }
