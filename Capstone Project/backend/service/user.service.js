@@ -2,7 +2,7 @@
 const userRepo = require("../repository/user.repository");
 const passwordHash = require("../config/passwordHashing");
 
-const signup = async (userData) => {
+const  signup = async (userData) => {
 const existingUser = await userRepo.findUserByEmail(userData.emailId);
 if (existingUser) {
     throw new Error("User already exists");
