@@ -2,12 +2,15 @@ const userService = require("../service/user.service");
 
 const signup = async (req, res) => {
 try {
+    console.log("controller layer")
     const user = await userService.signup(req.body);
     res.status(201).json({
     message: "Signup successful",
     user
     });
 } catch (error) {
+    console.log("error in controller")
+    console.log(error.message)  
     res.status(400).json({ error: error.message });
 }
 };

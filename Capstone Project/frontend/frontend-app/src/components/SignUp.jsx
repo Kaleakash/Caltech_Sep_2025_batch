@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../features/login/authThunk";
 
 function SignUp() {
@@ -7,6 +7,7 @@ let [emailId,setEmailId]=useState("")
 let [password,setPassword]=useState("")
 let [typeOfUser,setTypeOfUser]=useState("")
 let dispatch = useDispatch();
+let message = useSelector(gs=>gs.auth.message)
 let signUp = (event)=> {
     event.preventDefault();
     let login = {emailId,password,typeOfUser}
@@ -15,6 +16,7 @@ let signUp = (event)=> {
 }
     return(
         <div>
+            <span style={{"color":"red"}}>{message}</span>
             <h2>SignUp Page</h2>
             <form onSubmit={signUp}>
             <input type="email" placeholder="Enter EmailId" value={emailId}

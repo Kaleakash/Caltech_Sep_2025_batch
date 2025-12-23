@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../features/login/authThunk";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
 let [emailId,setEmailId]=useState("")
@@ -8,11 +9,23 @@ let [password,setPassword]=useState("")
 let [typeOfUser,setTypeOfUser]=useState("")
 let dispatch = useDispatch();
 let message = useSelector(gs=>gs.auth.message)
-let signIn = (event)=> {
+let userType = useSelector(gs=>gs.auth.typeOfUser)
+let navigate = useNavigate();
+let signIn = async (event)=> {
     event.preventDefault();
     let login = {emailId,password,typeOfUser}
-    //console.log(login);
-    dispatch(signInUser(login));
+    console.log(message+" "+userType);
+    let result = await dispatch(signInUser(login));
+    console.log(result)
+    let msg = result.payload.message;
+    let user = result.payload.user.typeOfUser
+    if(msg=="Signin successful" && user=="ADMIN"){
+        navigate("/admin")
+    }else if(msg=="Signin successful" && user=="CUSTOMER"){
+        navigate("/customer")
+    }else {
+
+    }
 }
     return(
         <div>

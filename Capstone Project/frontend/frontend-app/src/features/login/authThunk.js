@@ -9,8 +9,9 @@ async (userData, { rejectWithValue }) => {
     const response = await signUp(userData);
     return response.data;
     } catch (error) {
+        console.log(error)
     return rejectWithValue(
-        error
+        error.message
     );
     }
 }
@@ -22,6 +23,7 @@ async (loginData, { rejectWithValue }) => {
     const response = await signIn(loginData);
     return response.data;
     } catch (error) {
+        console.log(error)
     return rejectWithValue(
         error.message
     );

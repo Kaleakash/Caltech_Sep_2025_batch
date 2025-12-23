@@ -5,7 +5,9 @@ const loginSlice = createSlice({
 name: "auth",
 
 initialState: {
-    message:""
+    message:"",
+    typeOfUser:"",
+    emailId:""
 },
 reducers: {
     logout: (state) => {
@@ -22,10 +24,13 @@ extraReducers: (builder) => {
     })
     .addCase(signUpUser.fulfilled, (state,action) => {
         state.message = action.payload?.message;
+         console.log("full filled")
+        //console.log(action)
     })
     .addCase(signUpUser.rejected, (state, action) => {
-        console.log("rejected")
-        console.log(action)
+        //console.log("rejected")
+        //console.log(action)
+        state.message="Error generated"
     });
 
     /* ===== SIGN IN ===== */
@@ -35,7 +40,10 @@ extraReducers: (builder) => {
         
     })
     .addCase(signInUser.fulfilled, (state, action) => {
+        console.log(action.payload.user)
         state.message = action.payload?.message;
+        state.typeOfUser=action.payload.user.typeOfUser;
+        state.emailId = action.payload.user.emailId;
     })
     .addCase(signInUser.rejected, (state, action) => {
         state.message=action.payload
