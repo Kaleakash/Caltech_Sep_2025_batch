@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 function CustomerDashboard() {
 
@@ -12,6 +12,9 @@ let logout= ()=> {
     return(
         <div>
             <h2>Welcome user {emailId}, Customer Dashboard <input type="button" value="logout" onClick={logout}/></h2>
+            <Link to="view">View</Link>
+            <hr/>
+            <Outlet/>
         </div>
     )
 }
